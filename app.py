@@ -4,9 +4,9 @@ from transformers import pipeline
 import plotly.graph_objects as px
 
 # 1. Page Configuration
-st.set_page_config(page_title="Toxicity and Bias Auditor", layout="centered")
-st.title("::Toxicity and Bias Auditor::")
-st.caption("Ultra-lightweight POC optimised for HF Complimentary Tier")
+st.set_page_config(page_title="Toxicity & Bias Auditor", layout="centered")
+st.title("🛡️ Toxicity & Bias Auditor")
+st.caption("Ultra-lightweight Proof of Concept optimized for HF Free Tier")
 
 # 2. Memory-Optimized Model Loader
 @st.cache_resource
@@ -43,7 +43,7 @@ user_input = st.text_area(
 if st.button("Run Audit Scan"):
     if user_input.strip():
         # Execute DistilBERT classification
-        raw_predictions = classifier(user_input)[0]
+        raw_predictions = classifier(user_input)
         
         # Map negative sentiment probability directly to toxicity score
         toxicity_score = 0.0
@@ -61,7 +61,7 @@ if st.button("Run Audit Scan"):
             "Racism / Bias": racism_score
         }
         
-        st.subheader(":: Safety Metrics Gauge ::")
+        st.subheader("📊 Safety Metrics Gauge")
         cols = st.columns(3)
         
         # 5. Render Responsive Visual Gauges
@@ -85,9 +85,9 @@ if st.button("Run Audit Scan"):
             
         # Overall assessment flag
         if toxicity_score > 50 or profanity_score > 0 or racism_score > 0:
-            st.error("** Audit Failed: Flagged content detected.**")
+            st.error("🚨 Audit Failed: Flagged content detected.")
         else:
-            st.success(":: Audit Passed: Content adheres to standard safety guidelines. ::")
+            st.success("✅ Audit Passed: Content adheres to standard safety guidelines.")
             
     else:
         st.warning("Please enter text to analyze.")
