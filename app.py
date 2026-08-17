@@ -66,7 +66,7 @@ if st.button("Run Audit Scan"):
         
         # 5. Render Responsive Visual Gauges
         for idx, (metric_name, score) in enumerate(audit_metrics.items()):
-            fig = px.indicators.Gauge(
+            fig = px.Figure(px.indicators.Gauge(
                 mode="gauge+number",
                 value=score,
                 title={'text': metric_name, 'font': {'size': 14}},
@@ -74,12 +74,12 @@ if st.button("Run Audit Scan"):
                     'axis': {'range': [0, 100]},
                     'bar': {'color': "darkred" if score > 45 else "darkgreen"},
                     'steps': [
-                        {'range':, 'color': "#E2F0D9"},
-                        {'range':, 'color': "#FFF2CC"},
-                        {'range':, 'color': "#FCE4D6"}
+                        {'range': [0, 40], 'color': "#E2F0D9"},
+                        {'range': [40, 70], 'color': "#FFF2CC"},
+                        {'range': [70, 100], 'color': "#FCE4D6"}
                     ]
                 }
-            )
+            ))
             fig.update_layout(height=220, margin=dict(l=20, r=20, t=30, b=20))
             cols[idx].plotly_chart(fig, use_container_width=True)
             
