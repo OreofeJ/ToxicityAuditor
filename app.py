@@ -1,12 +1,12 @@
 import streamlit as st
 import torch
 from transformers import pipeline
-import plotly.graph_objects as px
+import plotly.graph_objects as go
 
 # 1. Page Configuration
 st.set_page_config(page_title="Toxicity & Bias Auditor", layout="centered")
 st.title("🛡️ Toxicity & Bias Auditor")
-st.caption("Ultra-lightweight Proof of Concept optimized for HF Free Tier")
+st.caption("Ultra-lightweight Proof of Concept optimized for Free Tier Platforms")
 
 # 2. Memory-Optimized Model Loader
 @st.cache_resource
@@ -64,9 +64,9 @@ if st.button("Run Audit Scan"):
         st.subheader("📊 Safety Metrics Gauge")
         cols = st.columns(3)
         
-        # 5. Render Responsive Visual Gauges
+        # 5. Render Responsive Visual Gauges using correct Graph Objects Syntax
         for idx, (metric_name, score) in enumerate(audit_metrics.items()):
-            fig = px.Figure(px.indicators.Gauge(
+            fig = go.Figure(go.Indicator(
                 mode="gauge+number",
                 value=score,
                 title={'text': metric_name, 'font': {'size': 14}},
@@ -74,9 +74,9 @@ if st.button("Run Audit Scan"):
                     'axis': {'range': [0, 100]},
                     'bar': {'color': "darkred" if score > 45 else "darkgreen"},
                     'steps': [
-                        {'range': [0, 40], 'color': "#E2F0D9"},
-                        {'range': [40, 70], 'color': "#FFF2CC"},
-                        {'range': [70, 100], 'color': "#FCE4D6"}
+                        {'range': [0, 45], 'color': "#E2F0D9"},
+                        {'range': [45, 75], 'color': "#FFF2CC"},
+                        {'range': [75, 100], 'color': "#FCE4D6"}
                     ]
                 }
             ))
